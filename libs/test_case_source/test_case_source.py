@@ -14,7 +14,7 @@ from toolz import (
   assoc)
 
 # Local Libs
-from libs.misc import MiscUtils as U
+from libs.utils.misc import MiscUtils as U
 from libs.domain.entity.test_case import TestCase
 
 

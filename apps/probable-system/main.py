@@ -8,7 +8,7 @@ from toolz import pipe as _
 # Local Libs
 from libs.domain.entity.test_case import TestCase
 from libs.test_case_source import TestCaseSource
-from libs.constants import Constants as C
+from libs.utils.constants import Constants as C
 
 
 def pytest_generate_tests(metafunc):
