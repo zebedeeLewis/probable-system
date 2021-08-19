@@ -1,0 +1,6 @@
+toolz
+pytest
+pytest-watch
+pytest-sugar
+selenium
+rx
