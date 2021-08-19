@@ -9,11 +9,9 @@ from typing import (
 from enum import Enum
 
 # Third Party (Site) Libs
+import toolz as T
 from toolz.itertoolz import last
-from toolz import (
-  curry,
-  pipe as _,
-  assoc)
+from toolz import pipe as _
 
 # Local Libs
 from libs.utils import Utils as U
@@ -45,20 +43,20 @@ RootModel: Final[Model] = {
 }
 
 
-@curry
+@T.curry
 def set_execution_state(
     execution_state: ExecutionState,
     test_case: Model) -> Model:
-  return assoc(test_case, 'execution_state', execution_state)
+  return T.assoc(test_case, 'execution_state', execution_state)
 
 
 def get_execution_state(model: Model) -> ExecutionState:
   return model.get('execution_state')
 
 
-@curry
+@T.curry
 def set_steps(steps: ListOfSteps, test_case: Model) -> Model:
-  return assoc(test_case, 'steps', steps)
+  return T.assoc(test_case, 'steps', steps)
 
 
 def get_steps(model: Model) -> ListOfSteps:
@@ -66,23 +64,23 @@ def get_steps(model: Model) -> ListOfSteps:
 
 
 def set_description(description: str, test_case: Model) -> Model:
-  return assoc(test_case, 'description', description)
+  return T.assoc(test_case, 'description', description)
 
 
 def get_description(model: Model) -> str:
   return model.get('description')
 
 
-@curry
+@T.curry
 def set_id(id: str, test_case: Model) -> Model:
-  return assoc(test_case, 'id', id)
+  return T.assoc(test_case, 'id', id)
 
 
 def get_id(model: Model) -> str:
   return model.get('id')
 
 
-@curry
+@T.curry
 def append_step(step: TestStep.Model, test_case: Model) -> Model:
   return _( test_case
           , get_steps
@@ -91,7 +89,7 @@ def append_step(step: TestStep.Model, test_case: Model) -> Model:
           , U.on(test_case))
 
 
-@curry
+@T.curry
 def to_applied_steps(
     steps: ListOfSteps,
     current_step: TestStep.Model

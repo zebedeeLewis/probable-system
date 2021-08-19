@@ -10,29 +10,29 @@ from typing import (
   Callable)
 
 # Third Party (Site) Libs
-from toolz import curry, apply as _apply
+import toolz as T
 
 
-concat = curry(_concat)
-cmap = curry(map)
+concat = T.curry(_concat)
+cmap = T.curry(map)
 
 
-@curry
+@T.curry
 def reduce(fn, init_value, iterable):
   return _reduce(fn, iterable, init_value)
 
 
-@curry
+@T.curry
 def append_to(lst: List, x: Any) -> List:
   return [*lst, x]
 
 
-@curry
+@T.curry
 def append(x: Any, lst: List) -> List:
   return append_to(lst, x)
 
 
-@curry
+@T.curry
 def log_pipe(msg, x):
   pp = PrettyPrinter(indent=2)
   print("DEBUG: {}: ".format(msg))
@@ -40,13 +40,13 @@ def log_pipe(msg, x):
   return x
 
 
-@curry
+@T.curry
 def debug_pipe(x):
   pdb.set_trace()
   return x
 
 
-@curry
+@T.curry
 def apply_to(x: Any, fn: Callable) -> Any:
   return fn(x)
 
@@ -54,6 +54,6 @@ def apply_to(x: Any, fn: Callable) -> Any:
 on: Final[Callable] = apply_to
 
 
-@curry
+@T.curry
 def apply(fn: Callable, arg: Any) -> Any:
   return apply_to(arg, fn)

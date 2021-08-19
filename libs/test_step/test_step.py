@@ -9,11 +9,8 @@ from typing import (
 from enum import Enum
 
 # Third Party (Site) Libs
-from toolz.functoolz import apply
-from toolz import (
-  curry,
-  pipe as _,
-  assoc)
+import toolz as T
+from toolz import pipe as _
 
 # Local Libs
 from libs.utils import Utils as U
@@ -57,39 +54,39 @@ RootModel: Final[Model] = {
 }
 
 
-@curry
+@T.curry
 def set_name(name: str, test_step: Model) -> Model:
-  return assoc(test_step, 'name', name)
+  return T.assoc(test_step, 'name', name)
 
 
 def get_name(model: Model) -> str:
   return model.get('name')
 
 
-@curry
+@T.curry
 def set_execution_state(
     execution_state: ExecutionState,
     test_step: Model
     ) -> Model:
-  return assoc(test_step, 'execution_state', execution_state)
+  return T.assoc(test_step, 'execution_state', execution_state)
 
 
 def get_execution_state(model: Model) -> ExecutionState:
   return model.get('execution_state')
 
 
-@curry
+@T.curry
 def set_result(result: Any, test_step: Model) -> Model:
-  return assoc(test_step, 'result', result)
+  return T.assoc(test_step, 'result', result)
 
 
 def get_result(model: Model) -> Any:
   return model.get('result')
 
 
-@curry
+@T.curry
 def set_data(data: Any, test_step: Model) -> Model:
-  return assoc(test_step, 'data', data)
+  return T.assoc(test_step, 'data', data)
 
 
 def get_data(model: Model) -> Any:
@@ -97,34 +94,34 @@ def get_data(model: Model) -> Any:
 
 
 def set_description(description: str, test_step: Model) -> Model:
-  return assoc(test_step, 'description', description)
+  return T.assoc(test_step, 'description', description)
 
 
 def get_description(model: Model) -> str:
   return model.get('description')
 
 
-@curry
+@T.curry
 def set_id(id: str, test_step: Model) -> Model:
-  return assoc(test_step, 'id', id)
+  return T.assoc(test_step, 'id', id)
 
 
 def get_id(model: Model) -> str:
   return model.get('id')
 
 
-@curry
+@T.curry
 def set_test_id(test_id: str, test_step: Model) -> Model:
-  return assoc(test_step, 'test_id', test_id)
+  return T.assoc(test_step, 'test_id', test_id)
 
 
 def get_test_id(model: Model) -> str:
   return model.get('test_id')
 
 
-@curry
+@T.curry
 def set_runner(runner: Callable, test_step: Model) -> Model:
-  return assoc(test_step, 'runner', runner)
+  return T.assoc(test_step, 'runner', runner)
 
 
 def get_runner(model: Model) -> Callable:
@@ -165,7 +162,7 @@ def has_data(test_step: Model) -> bool:
   return True if get_data(test_step) != None else False
 
 
-@curry
+@T.curry
 def pipe_data_to_result(
     stepA: Model,
     stepB: Model
