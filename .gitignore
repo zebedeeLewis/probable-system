@@ -1,1 +1,8 @@
 bytecode/
+*.swp
+*.swo
+*.pyc
+*.pyo
+.tox/
+.cache/
+.pytest_cache/
