@@ -103,7 +103,6 @@ def to_applied_steps(
             , U.append_to(steps))
   else:
     return _( steps
-            , U.debug_pipe
             , last
             , TestStep.pipe_data_to_result
             , U.on(current_step)
