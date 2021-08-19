@@ -6,19 +6,30 @@ import pytest
 from toolz import pipe as _
 
 # Local Libs
-from libs.domain.entity.test_case import TestCase
-from libs.test_case_source import TestCaseSource
 from libs.utils.constants import Constants as C
+from libs.domain.entity.test_case import TestCase
+from libs.infrastructure.repository.test_case import TestCaseRepo
+from libs.infrastructure.data_access_object.test_case import TestCaseDAO
+from libs.infrastructure.data_access_object.test_step import TestStepDAO
 
 
 def pytest_generate_tests(metafunc):
   if "test_case" in metafunc.fixturenames:
+    data_source = open(C.TEST_CASE_FILE)
+    test_case_dao = TestCaseDAO.create(data_source)
+    test_step_dao = TestStepDAO.create(data_source)
+
+    test_cases = (
+      TestCaseRepo
+        .create(test_case_dao, test_step_dao)
+        .get())
+
     metafunc.parametrize(
       "test_case",
-      _( C.TEST_CASE_FILE
-       , TestCaseSource.load
-       , TestCaseSource.to_test_cases)
+      test_cases,
     )
+
+    data_source.close()
 
 
 def test_runner(test_case):
