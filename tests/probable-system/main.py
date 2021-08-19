@@ -6,7 +6,7 @@ import pytest
 from toolz import pipe as _
 
 # Local Libs
-from libs.test_case import TestCase
+from libs.domain.entity.test_case import TestCase
 from libs.test_case_source import TestCaseSource
 from libs.constants import Constants as C
 

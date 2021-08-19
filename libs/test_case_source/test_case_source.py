@@ -15,7 +15,7 @@ from toolz import (
 
 # Local Libs
 from libs.utils import Utils as U
-from libs.test_case import TestCase
+from libs.domain.entity.test_case import TestCase
 
 
 # TODO!!!
