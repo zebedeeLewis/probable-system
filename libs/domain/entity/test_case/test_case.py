@@ -15,7 +15,7 @@ from toolz import pipe as _
 
 # Local Libs
 from libs.utils import Utils as U
-from libs.test_step import TestStep
+from libs.domain.entity.test_step import TestStep
 
 
 ListOfSteps = List[TestStep.Model]
