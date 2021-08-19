@@ -3,4 +3,5 @@ pytest
 pytest-watch
 pytest-sugar
 selenium
+openpyxl
 rx
