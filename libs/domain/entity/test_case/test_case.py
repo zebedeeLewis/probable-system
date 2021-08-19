@@ -14,7 +14,7 @@ from toolz.itertoolz import last
 from toolz import pipe as _
 
 # Local Libs
-from libs.utils import Utils as U
+from libs.misc import MiscUtils as U
 from libs.domain.entity.test_step import TestStep
 
 

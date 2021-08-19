@@ -1,5 +1,5 @@
 
-from .utils import (
+from .misc_utils import (
   cmap,
   reduce,
   apply_to,
