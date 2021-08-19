@@ -138,7 +138,7 @@ def apply_runner_to_data(test_step: Model) -> Any:
   )
 
 
-def apply_runner_and_set_result(test_step: Model) -> Model:
+def apply_step_runner_and_set_result(test_step: Model) -> Model:
   return _( test_step
           , apply_runner_to_data
           , set_result
@@ -149,7 +149,7 @@ def apply(test_step: Model) -> Model:
   try:
     return _( test_step
             , set_execution_state(ExecutionState.RUNNING)
-            , apply_runner_and_set_result
+            , apply_step_runner_and_set_result
             , set_execution_state(ExecutionState.SUCCESSFUL))
 
   except Exception as err:
