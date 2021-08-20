@@ -2,6 +2,7 @@
 import pdb
 from typing import (
   TypedDict,
+  Union,
   Final,
   NoReturn,
   List,
@@ -31,7 +32,7 @@ class ExecutionState(Enum):
 class Model(TypedDict):
   id               : str
   description      : str
-  steps            : List[TestStep.Model]
+  steps            : Union[List[str], List[TestStep.Model]]
   execution_state  : ExecutionState
 
 
@@ -63,6 +64,7 @@ def get_steps(model: Model) -> ListOfSteps:
   return model.get('steps')
 
 
+@T.curry
 def set_description(description: str, test_case: Model) -> Model:
   return T.assoc(test_case, 'description', description)
 
@@ -125,8 +127,13 @@ def take_last_step_execution_state(test_case: Model) -> Model:
           , U.on(test_case))
 
 
+def has_steps(test_case: Model) -> bool:
+  return _(test_case, get_steps, len) < 1
+
+
 def run(test_case: Model) -> Model:
-  return _( test_case
+  return  (test_case if has_steps(test_case)
+    else _( test_case
           , apply_steps
-          , take_last_step_execution_state)
+          , take_last_step_execution_state))
 
