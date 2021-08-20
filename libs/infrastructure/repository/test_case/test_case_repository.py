@@ -26,8 +26,11 @@ def get_steps_from_ids(
   test_steps = []
   for id in test_step_ids:
     step_read_result = test_step_dao.read(id)
-    step = TestStep.Model if step_read_result == None else step_read_result
-    test_steps = [*steps, step]
+    # TODO: create a step model that should be used when a given step id is not found
+    # that way the UI could display some kind of information indicating a reference
+    # to a missing/non-existent step.
+    step = TestStep.RootModel if step_read_result is None else step_read_result
+    test_steps = [*test_steps, step]
 
   return test_steps
 
@@ -49,7 +52,7 @@ class TestCaseRepo(RepositoryI.RepositoryI):
     for test_case in test_cases:
       step_ids = TestCase.get_steps(test_case)
       test_steps = get_steps_from_ids(self.test_step_dao, step_ids)
-      final_test_cases = [*final_test_cases, TestCase.set_steps(test_steps)]
+      final_test_cases = [*final_test_cases, TestCase.set_steps(test_steps, test_case)]
 
     return final_test_cases
     
