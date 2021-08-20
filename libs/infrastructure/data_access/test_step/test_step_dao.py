@@ -16,7 +16,7 @@ from libs.infrastructure.data_transfer.test_step import TestStepDTO
 from libs.domain.entity.test_step import TestStep
 
 
-WORKSHEET_NAME: Final[str] = "Sheet1"
+WORKSHEET_NAME: Final[str] = "test_step_table"
 
 
 class TestStepDAO(DataAccessObjectI.DataAccessObjectI):
