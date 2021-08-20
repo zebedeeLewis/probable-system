@@ -14,7 +14,17 @@ import toolz as T
 
 
 concat = T.curry(_concat)
-cmap = T.curry(map)
+_map = T.curry(map)
+
+
+@T.curry
+def _filter(fn: Callable, lst: List[Any]) -> List[Any]:
+  return list(filter(fn, lst))
+
+
+@T.curry
+def split_by(separator: str, data_str: str) -> List[str]:
+  return data_str.split(separator)
 
 
 @T.curry

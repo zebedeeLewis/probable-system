@@ -1,6 +1,7 @@
 
 from .misc_utils import (
-  cmap,
+  _map as map,
+  _filter as filter,
   reduce,
   apply_to,
   apply,
@@ -9,4 +10,5 @@ from .misc_utils import (
   debug_pipe,
   append_to,
   append,
+  split_by,
   concat)
