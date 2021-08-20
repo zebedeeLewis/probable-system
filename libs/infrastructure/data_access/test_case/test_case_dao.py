@@ -26,7 +26,7 @@ class TestCaseDAO(DataAccessObjectI.DataAccessObjectI):
 
   def read_set(self) -> List[TestCase.Model]:
     return [ TestCaseDTO.parse_row_to_model(row_index, self.worksheet)
-      for row_index in range(self.worksheet.min_row, self.worksheet.max_row+1)]
+             for row_index in range(self.worksheet.min_row, self.worksheet.max_row+1)]
 
 
   def read_single(self, id: str) -> Union[None, TestCase.Model]:
@@ -40,7 +40,7 @@ class TestCaseDAO(DataAccessObjectI.DataAccessObjectI):
 
   def read(self, id: Optional[str]=None) -> Union[None, TestCase.Model, List[TestCase.Model]]:
     return (self.read_set() if id == None
-      else self.read_single(id))
+             else self.read_single(id))
 
 
 def create(dataWorkbook: workbook.Workbook) -> TestCaseDAO:
