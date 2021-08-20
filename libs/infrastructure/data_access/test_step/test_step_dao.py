@@ -1,17 +1,13 @@
 # Standard Libs
-import io
 from typing import (
-  Optional,
-  Final,
-  Union,
-  List)
+  Final)
 
 # Third Party (Site) Libs
 import openpyxl.workbook.workbook as workbook
 from toolz import pipe as _
 
 # Local Libs
-from libs.infrastructure.data_access.dao_interface import DataAccessObjectI
+from libs.infrastructure.data_access.excel_db import ExcelDatabaseDAO
 from libs.infrastructure.data_transfer.test_step import TestStepDTO
 from libs.domain.entity.test_step import TestStep
 
@@ -19,29 +15,18 @@ from libs.domain.entity.test_step import TestStep
 WORKSHEET_NAME: Final[str] = "test_step_table"
 
 
-class TestStepDAO(DataAccessObjectI.DataAccessObjectI):
+class TestStepDAO(ExcelDatabaseDAO.ExcelDatabaseDAO):
 
   def __init__(self, dataWorkbook: workbook.Workbook):
-    self.worksheet = dataWorkbook[WORKSHEET_NAME]
+    super().__init__(dataWorkbook, WORKSHEET_NAME)
 
 
-  def read_set(self) -> List[TestStep.Model]:
-    return [ TestStepDTO.parse_row_to_model(row_index, self.worksheet)
-      for row_index in range(self.worksheet.min_row, self.worksheet.max_row+1)]
+  def parse_row_to_model(self, row_index: int) -> dict:
+    return TestStepDTO.parse_row_to_model(row_index, self.worksheet)
 
 
-  def read_single(self, id: str) -> Union[None, TestStep.Model]:
-    steps = self.read_set()
-    for step in steps:
-      if TestStep.get_id(step) == id:
-        return step
-
-    return None
-
-
-  def read(self, id: Optional[str]=None) -> Union[None, TestStep.Model, List[TestStep.Model]]:
-    return (self.read_set() if id == None
-      else self.read_single(id))
+  def get_model_id(self, step: dict) -> str:
+    return TestStep.get_id(step)
 
 
 def create(dataWorkbook: workbook.Workbook) -> TestStepDAO:
