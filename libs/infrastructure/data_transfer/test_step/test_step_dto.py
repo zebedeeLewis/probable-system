@@ -28,20 +28,22 @@ Model: Final = worksheet.Worksheet
 
 @T.curry
 def read_cell(row_index: int, cell: str, worksheet: Model) -> Any:
-  return worksheet["{}{}".format(cell, str(row))].value
+  return worksheet["{}{}".format(cell, str(row_index))].value
 
 
 @T.curry
-def parse_row_to_worksheet(row_index: int, worksheet: Model) -> TestStep.Model:
+def parse_row_to_model(row_index: int, worksheet: Model) -> TestStep.Model:
   read_row_cell = read_cell(row_index)
   return _( TestStep.RootModel
           , TestStep.set_id(read_row_cell(STEP_ID_COL, worksheet))
           , TestStep.set_test_id(read_row_cell(TEST_ID_COL, worksheet))
           , TestStep.set_name(read_row_cell(NAME_COL, worksheet))
           , TestStep.set_description(read_row_cell(DESCRIPTION_COL, worksheet))
-          , TestStep.set_runner(read_row_cell(RUNNER_COL, worksheet))
           , TestStep.set_execution_state(read_row_cell(EXECUTION_STATE_COL, worksheet))
           , TestStep.set_result(read_row_cell(RESULT_COL, worksheet))
-          , TestStep.set_data(read_row_cell(DATA_COL, worksheet)))
+          , TestStep.set_data(read_row_cell(DATA_COL, worksheet))
+          # TODO: replace default runner with
+          #, TestStep.set_runner(read_row_cell(RUNNER_COL, worksheet)) )
+          , TestStep.set_runner(TestStep.default_runner) )
 
 
