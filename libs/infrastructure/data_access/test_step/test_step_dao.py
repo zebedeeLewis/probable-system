@@ -27,7 +27,7 @@ class TestStepDAO(DataAccessObjectI.DataAccessObjectI):
 
   def read_set(self) -> List[TestStep.Model]:
     return [ TestStepDTO.parse_row_to_model(row_index, self.worksheet)
-        for row_index in range(self.worksheet.min_row, self.worksheet.max_row+1)]
+      for row_index in range(self.worksheet.min_row, self.worksheet.max_row+1)]
 
 
   def read_single(self, id: str) -> Union[None, TestStep.Model]:
@@ -40,8 +40,8 @@ class TestStepDAO(DataAccessObjectI.DataAccessObjectI):
 
 
   def read(self, id: Optional[str]=None) -> Union[None, TestStep.Model, List[TestStep.Model]]:
-      return (self.read_set() if id == None
-        else self.read_single(id))
+    return (self.read_set() if id == None
+      else self.read_single(id))
 
 
 def create(dataWorkbook: workbook.Workbook) -> TestStepDAO:
