@@ -3,6 +3,7 @@ import pdb
 from typing import (
   Any,
   Final,
+  Union,
   Optional,
   TypedDict,
   Callable)
@@ -85,7 +86,7 @@ def get_result(model: Model) -> Any:
 
 
 @T.curry
-def set_data(data: Any, test_step: Model) -> Model:
+def set_data(data: Union[None, Any], test_step: Model) -> Model:
   return T.assoc(test_step, 'data', data)
 
 
@@ -93,6 +94,7 @@ def get_data(model: Model) -> Any:
   return model.get('data')
 
 
+@T.curry
 def set_description(description: str, test_step: Model) -> Model:
   return T.assoc(test_step, 'description', description)
 
