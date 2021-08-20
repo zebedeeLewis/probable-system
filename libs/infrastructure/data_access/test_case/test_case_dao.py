@@ -10,7 +10,7 @@ from typing import (
 import openpyxl.workbook.workbook as workbook
 
 # Local Libs
-from libs.infrastructure.data_access_object.dao_interface import DataAccessObjectI
+from libs.infrastructure.data_access.dao_interface import DataAccessObjectI
 from libs.domain.entity.test_case import TestCase
 
 

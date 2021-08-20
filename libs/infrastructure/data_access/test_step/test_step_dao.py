@@ -12,7 +12,7 @@ import openpyxl.workbook.workbook as workbook
 from toolz import pipe as _
 
 # Local Libs
-from libs.infrastructure.data_access_object.dao_interface import DataAccessObjectI
+from libs.infrastructure.data_access.dao_interface import DataAccessObjectI
 from libs.domain.entity.test_step import TestStep
 
 

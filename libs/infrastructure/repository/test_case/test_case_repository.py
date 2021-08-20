@@ -15,8 +15,8 @@ from libs.utils.misc import MiscUtils as U
 from libs.domain.entity.test_step import TestStep
 from libs.domain.entity.test_case import TestCase
 from libs.infrastructure.repository.repository_interface import RepositoryI
-from libs.infrastructure.data_access_object.test_case import TestCaseDAO
-from libs.infrastructure.data_access_object.test_step import TestStepDAO
+from libs.infrastructure.data_access.test_case import TestCaseDAO
+from libs.infrastructure.data_access.test_step import TestStepDAO
 
 
 @T.curry

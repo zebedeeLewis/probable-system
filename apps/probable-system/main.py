@@ -11,8 +11,8 @@ import openpyxl.workbook.workbook as workbook
 from libs.utils.constants import Constants as C
 from libs.domain.entity.test_case import TestCase
 from libs.infrastructure.repository.test_case import TestCaseRepo
-from libs.infrastructure.data_access_object.test_case import TestCaseDAO
-from libs.infrastructure.data_access_object.test_step import TestStepDAO
+from libs.infrastructure.data_access.test_case import TestCaseDAO
+from libs.infrastructure.data_access.test_step import TestStepDAO
 
 
 def pytest_generate_tests(metafunc):
