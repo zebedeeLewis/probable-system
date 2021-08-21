@@ -8,7 +8,7 @@ import toolz as Z
 from toolz import pipe as _
 
 # Local Libs
-from libs.domain.entity.test_step import TestStep
+from libs.domain.entity.test_step_entity import TestStep
 
 
 STEP_ID_COL         : T.Final[str] = "A"
