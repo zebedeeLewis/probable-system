@@ -8,7 +8,7 @@ import toolz as Z
 from toolz import pipe as _
 
 # Local Libs
-from libs.domain.entity.test_case import TestCase
+from libs.domain.entity.test_case_entity import TestCase
 from libs.utils.misc import MiscUtils as U
 
 
