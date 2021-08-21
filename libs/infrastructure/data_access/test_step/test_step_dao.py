@@ -8,7 +8,7 @@ from toolz import pipe as _
 # Local Libs
 from libs.infrastructure.data_access.excel_db import ExcelDatabaseDAO
 from libs.infrastructure.data_transfer.test_step import TestStepDTO
-from libs.domain.entity.test_step import TestStep
+from libs.domain.entity.test_step_entity import TestStep
 
 
 WORKSHEET_NAME: T.Final[str] = "test_step_table"
