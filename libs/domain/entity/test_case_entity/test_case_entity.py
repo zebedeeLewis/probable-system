@@ -10,7 +10,7 @@ from toolz import pipe as _
 
 # Local Libs
 from libs.utils.misc import MiscUtils as U
-from libs.domain.entity.test_step import TestStep
+from libs.domain.entity.test_step_entity import TestStep
 
 
 ListOfSteps = T.List[TestStep.Model]
