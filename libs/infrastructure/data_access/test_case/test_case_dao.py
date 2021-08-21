@@ -7,7 +7,7 @@ import openpyxl.workbook.workbook as workbook
 # Local Libs
 from libs.infrastructure.data_access.excel_db import ExcelDatabaseDAO
 from libs.infrastructure.data_transfer.test_case import TestCaseDTO
-from libs.domain.entity.test_case import TestCase
+from libs.domain.entity.test_case_entity import TestCase
 
 
 WORKSHEET_NAME: T.Final[str] = "test_case_table"
