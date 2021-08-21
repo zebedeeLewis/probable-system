@@ -1,5 +1,5 @@
 
-from .test_case import (
+from .test_case_entity import (
   Model,
   RootModel,
   get_steps,
