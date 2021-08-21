@@ -20,7 +20,8 @@ class TestCaseDAO(ExcelDatabaseDAO.ExcelDatabaseDAO):
 
 
   def parse(self, row_index: int) -> dict:
-    return TestCaseDTO.parse(row_index, self.worksheet)
+    return TestCaseDTO.parse(next(
+      self.worksheet.iter_rows(1,1,1, self.worksheet.max_column, True) ))
 
 
   def get_model_id(self, step: dict) -> str:
