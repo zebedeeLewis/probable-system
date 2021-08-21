@@ -12,13 +12,13 @@ from libs.domain.entity.test_case import TestCase
 from libs.utils.misc import MiscUtils as U
 
 
-ID_COL              : T.Final[str] = "A"
-DESCRIPTION_COL     : T.Final[str] = "B"
-EXECUTION_STATE_COL : T.Final[str] = "C"
-TEST_STEPS_COL      : T.Final[str] = "D"
+ID_COL              : T.Final[int] = 0
+DESCRIPTION_COL     : T.Final[int] = 1
+EXECUTION_STATE_COL : T.Final[int] = 2
+TEST_STEPS_COL      : T.Final[int] = 3
 
 
-Model: T.Final = worksheet.Worksheet
+Model: T.Final = T.Tuple[str, str, str, str]
 
 
 @Z.curry
@@ -27,14 +27,12 @@ def read_cell(row_index: int, cell: str, worksheet: Model) -> T.Any:
 
 
 @Z.curry
-def parse(row_index: int, worksheet: Model) -> TestCase.Model:
-  read_row_cell = read_cell(row_index)
+def parse(row: Model) -> TestCase.Model:
   return _( TestCase.RootModel
-          , TestCase.set_id(read_row_cell(ID_COL, worksheet))
-          , TestCase.set_description(read_row_cell(DESCRIPTION_COL, worksheet))
-          , TestCase.set_execution_state(read_row_cell(EXECUTION_STATE_COL, worksheet))
-          , TestCase.set_steps(_( worksheet
-                                , read_row_cell(TEST_STEPS_COL)
+          , TestCase.set_id(row[ID_COL])
+          , TestCase.set_description(row[DESCRIPTION_COL])
+          , TestCase.set_execution_state(row[EXECUTION_STATE_COL])
+          , TestCase.set_steps(_( row[TEST_STEPS_COL]
                                 , U.split_by(",")
                                 , U.filter(lambda x: x != "") )))
 
