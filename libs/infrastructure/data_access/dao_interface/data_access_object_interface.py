@@ -1,14 +1,9 @@
 # Standard Libs
 import pdb
 import abc
-from typing import (
-  Optional,
-  List)
+import typing as T
 
 # Third Party (Site) Libs
-import toolz as T
-from toolz.itertoolz import last
-from toolz import pipe as _
 
 # Local Libs
 from libs.utils.misc import MiscUtils as U
@@ -17,5 +12,5 @@ from libs.utils.misc import MiscUtils as U
 class DataAccessObjectI(abc.ABC):
 
   @abc.abstractmethod
-  def read(self, id: Optional[str]=None):
+  def read(self, id: T.Optional[str]=None):
     pass

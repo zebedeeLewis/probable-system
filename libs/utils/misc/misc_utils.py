@@ -1,48 +1,44 @@
 # Standard Libs
 import pdb
+import typing as T
 from pprint import PrettyPrinter
 from functools import reduce as _reduce
 from operator import concat as _concat
-from typing import (
-  List,
-  Any,
-  Final,
-  Callable)
 
 # Third Party (Site) Libs
-import toolz as T
+import toolz as Z
 
 
-concat = T.curry(_concat)
-_map = T.curry(map)
+concat = Z.curry(_concat)
+_map = Z.curry(map)
 
 
-@T.curry
-def _filter(fn: Callable, lst: List[Any]) -> List[Any]:
+@Z.curry
+def _filter(fn: T.Callable, lst: T.List[T.Any]) -> T.List[T.Any]:
   return list(filter(fn, lst))
 
 
-@T.curry
-def split_by(separator: str, data_str: str) -> List[str]:
+@Z.curry
+def split_by(separator: str, data_str: str) -> T.List[str]:
   return data_str.split(separator)
 
 
-@T.curry
+@Z.curry
 def reduce(fn, init_value, iterable):
   return _reduce(fn, iterable, init_value)
 
 
-@T.curry
-def append_to(lst: List, x: Any) -> List:
+@Z.curry
+def append_to(lst: T.List, x: T.Any) -> T.List:
   return [*lst, x]
 
 
-@T.curry
-def append(x: Any, lst: List) -> List:
+@Z.curry
+def append(x: T.Any, lst: T.List) -> T.List:
   return append_to(lst, x)
 
 
-@T.curry
+@Z.curry
 def log_pipe(msg, x):
   pp = PrettyPrinter(indent=2)
   print("DEBUG: {}: ".format(msg))
@@ -50,20 +46,20 @@ def log_pipe(msg, x):
   return x
 
 
-@T.curry
+@Z.curry
 def debug_pipe(x):
   pdb.set_trace()
   return x
 
 
-@T.curry
-def apply_to(x: Any, fn: Callable) -> Any:
+@Z.curry
+def apply_to(x: T.Any, fn: T.Callable) -> T.Any:
   return fn(x)
 
 
-on: Final[Callable] = apply_to
+on: T.Final[T.Callable] = apply_to
 
 
-@T.curry
-def apply(fn: Callable, arg: Any) -> Any:
+@Z.curry
+def apply(fn: T.Callable, arg: T.Any) -> T.Any:
   return apply_to(arg, fn)

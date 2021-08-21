@@ -1,6 +1,5 @@
 # Standard Libs
-from typing import (
-  Final)
+import typing as T
 
 # Third Party (Site) Libs
 import openpyxl.workbook.workbook as workbook
@@ -11,7 +10,7 @@ from libs.infrastructure.data_transfer.test_case import TestCaseDTO
 from libs.domain.entity.test_case import TestCase
 
 
-WORKSHEET_NAME: Final[str] = "test_case_table"
+WORKSHEET_NAME: T.Final[str] = "test_case_table"
 
 
 class TestCaseDAO(ExcelDatabaseDAO.ExcelDatabaseDAO):

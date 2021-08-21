@@ -1,6 +1,5 @@
 # Standard Libs
-from typing import (
-  Final)
+import typing as T
 
 # Third Party (Site) Libs
 import openpyxl.workbook.workbook as workbook
@@ -12,7 +11,7 @@ from libs.infrastructure.data_transfer.test_step import TestStepDTO
 from libs.domain.entity.test_step import TestStep
 
 
-WORKSHEET_NAME: Final[str] = "test_step_table"
+WORKSHEET_NAME: T.Final[str] = "test_step_table"
 
 
 class TestStepDAO(ExcelDatabaseDAO.ExcelDatabaseDAO):

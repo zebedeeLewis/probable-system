@@ -1,11 +1,7 @@
 # Standard Libs
 import pdb
 import abc
-from typing import (
-  Optional,
-  Union,
-  Final,
-  List)
+import typing as T
 
 # Third Party (Site) Libs
 import openpyxl.workbook.workbook as workbook
@@ -26,7 +22,7 @@ class ExcelDatabaseDAO(DataAccessObjectI.DataAccessObjectI):
     pass
 
 
-  def read_set(self) -> List[dict]:
+  def read_set(self) -> T.List[dict]:
     return [ self.parse_row_to_model(row_index)
                for row_index in range(self.min_row, self.max_row+1)]
 
@@ -36,7 +32,7 @@ class ExcelDatabaseDAO(DataAccessObjectI.DataAccessObjectI):
     pass
 
 
-  def read_single(self, id: str) -> Union[None, dict]:
+  def read_single(self, id: str) -> T.Union[None, dict]:
     models = self.read_set()
     for model in models:
       if self.get_model_id(model) == id:
@@ -45,7 +41,7 @@ class ExcelDatabaseDAO(DataAccessObjectI.DataAccessObjectI):
     return None
 
 
-  def read(self, id: Optional[str]=None) -> Union[None, dict, List[dict]]:
+  def read(self, id: T.Optional[str]=None) -> T.Union[None, dict, T.List[dict]]:
     return (self.read_set() if id == None
              else self.read_single(id))
 

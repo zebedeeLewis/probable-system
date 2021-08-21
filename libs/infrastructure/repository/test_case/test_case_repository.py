@@ -1,13 +1,9 @@
 # Standard Libs
 import pdb
-from typing import (
-  Final,
-  Union,
-  NoReturn,
-  List)
+import typing as T
 
 # Third Party (Site) Libs
-import toolz as T
+import toolz as Z
 from toolz import pipe as _
 
 # Local Libs
@@ -19,18 +15,18 @@ from libs.infrastructure.data_access.test_case import TestCaseDAO
 from libs.infrastructure.data_access.test_step import TestStepDAO
 
 
-def flag_non_existent_step(test_step: Union[None, TestStep.Model]) -> TestStep.Model:
+def flag_non_existent_step(test_step: T.Union[None, TestStep.Model]) -> TestStep.Model:
   # TODO: create a step model that should be used when a given step id is not found
   # that way the UI could display some kind of information indicating a reference
   # to a missing/non-existent step.
   return TestStep.RootModel if test_step is None else test_step
 
 
-@T.curry
+@Z.curry
 def get_steps_from_ids(
     test_step_dao: TestStepDAO.TestStepDAO,
-    test_step_ids: List[str]
-    ) -> List[TestStep.Model]:
+    test_step_ids: T.List[str]
+    ) -> T.List[TestStep.Model]:
   return [_( step_id
            , test_step_dao.read
            , flag_non_existent_step
@@ -48,7 +44,7 @@ class TestCaseRepo(RepositoryI.RepositoryI):
     self.test_case_dao = test_case_dao
 
 
-  def get(self) -> List[TestCase.Model]:
+  def get(self) -> T.List[TestCase.Model]:
     return [_( test_case
              , TestCase.get_steps
              , get_steps_from_ids(self.test_step_dao)
@@ -58,11 +54,11 @@ class TestCaseRepo(RepositoryI.RepositoryI):
     
 
   # TODO!!!
-  def get_by_id(self, id: str) -> Union[None, TestCase.Model]:
+  def get_by_id(self, id: str) -> T.Union[None, TestCase.Model]:
     pass
 
 
-@T.curry
+@Z.curry
 def create(
     test_case_dao: TestCaseDAO.TestCaseDAO,
     test_step_dao: TestStepDAO.TestStepDAO

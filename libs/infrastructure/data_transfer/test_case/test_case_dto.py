@@ -1,12 +1,10 @@
 # Standard Libs
 import io
-from typing import (
-  Any,
-  Final)
+import typing as T
 
 # Third Party (Site) Libs
 import openpyxl.worksheet.worksheet as worksheet
-import toolz as T
+import toolz as Z
 from toolz import pipe as _
 
 # Local Libs
@@ -14,21 +12,21 @@ from libs.domain.entity.test_case import TestCase
 from libs.utils.misc import MiscUtils as U
 
 
-ID_COL              : Final[str] = "A"
-DESCRIPTION_COL     : Final[str] = "B"
-EXECUTION_STATE_COL : Final[str] = "C"
-TEST_STEPS_COL      : Final[str] = "D"
+ID_COL              : T.Final[str] = "A"
+DESCRIPTION_COL     : T.Final[str] = "B"
+EXECUTION_STATE_COL : T.Final[str] = "C"
+TEST_STEPS_COL      : T.Final[str] = "D"
 
 
-Model: Final = worksheet.Worksheet
+Model: T.Final = worksheet.Worksheet
 
 
-@T.curry
-def read_cell(row_index: int, cell: str, worksheet: Model) -> Any:
+@Z.curry
+def read_cell(row_index: int, cell: str, worksheet: Model) -> T.Any:
   return worksheet["{}{}".format(cell, str(row_index))].value
 
 
-@T.curry
+@Z.curry
 def parse_row_to_model(row_index: int, worksheet: Model) -> TestCase.Model:
   read_row_cell = read_cell(row_index)
   return _( TestCase.RootModel
