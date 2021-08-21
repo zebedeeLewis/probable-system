@@ -30,7 +30,7 @@ def read_cell(row_index: int, cell: str, worksheet: Model) -> T.Any:
 
 
 @Z.curry
-def parse_row_to_model(row_index: int, worksheet: Model) -> TestStep.Model:
+def parse(row_index: int, worksheet: Model) -> TestStep.Model:
   read_row_cell = read_cell(row_index)
   return _( TestStep.RootModel
           , TestStep.set_id(read_row_cell(STEP_ID_COL, worksheet))

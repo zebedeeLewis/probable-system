@@ -20,8 +20,8 @@ class TestStepDAO(ExcelDatabaseDAO.ExcelDatabaseDAO):
     super().__init__(dataWorkbook, WORKSHEET_NAME)
 
 
-  def parse_row_to_model(self, row_index: int) -> dict:
-    return TestStepDTO.parse_row_to_model(row_index, self.worksheet)
+  def parse(self, row_index: int) -> dict:
+    return TestStepDTO.parse(row_index, self.worksheet)
 
 
   def get_model_id(self, step: dict) -> str:

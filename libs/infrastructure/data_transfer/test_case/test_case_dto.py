@@ -27,7 +27,7 @@ def read_cell(row_index: int, cell: str, worksheet: Model) -> T.Any:
 
 
 @Z.curry
-def parse_row_to_model(row_index: int, worksheet: Model) -> TestCase.Model:
+def parse(row_index: int, worksheet: Model) -> TestCase.Model:
   read_row_cell = read_cell(row_index)
   return _( TestCase.RootModel
           , TestCase.set_id(read_row_cell(ID_COL, worksheet))

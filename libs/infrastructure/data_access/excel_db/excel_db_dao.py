@@ -18,12 +18,12 @@ class ExcelDatabaseDAO(DataAccessObjectI.DataAccessObjectI):
     self.max_row = self.worksheet.max_row
 
   @abc.abstractmethod
-  def parse_row_to_model(self, row_index: int) -> dict:
+  def parse(self, row_index: int) -> dict:
     pass
 
 
   def read_set(self) -> T.List[dict]:
-    return [ self.parse_row_to_model(row_index)
+    return [ self.parse(row_index)
                for row_index in range(self.min_row, self.max_row+1)]
 
 
