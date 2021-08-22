@@ -19,7 +19,7 @@ class Model(T.TypedDict):
   runner      : ActionRunner
 
 
-def default_runner(data: Optional[T.Any]) -> T.Union[None, T.Any]:
+def default_runner(data: T.Optional[T.Any]) -> T.Union[None, T.Any]:
   assert False
   return None
 
