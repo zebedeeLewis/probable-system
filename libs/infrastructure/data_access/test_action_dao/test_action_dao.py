@@ -6,7 +6,7 @@ import openpyxl.workbook.workbook as workbook
 
 # Local Libs
 from libs.infrastructure.data_access.excel_db import ExcelDatabaseDAO
-from libs.infrastructure.data_transfer.test_action import TestActionDTO
+from libs.infrastructure.data_transfer.test_action_dto import TestActionDTO
 from libs.domain.entity.test_action_entity import TestAction
 
 
@@ -26,7 +26,7 @@ class TestActionDAO(ExcelDatabaseDAO.ExcelDatabaseDAO):
       row_index,
       FIRST_COL_INDEX,
       self.worksheet.max_column,
-      True)))
+      True )))
 
 
   def get_model_id(self, action: dict) -> str:
