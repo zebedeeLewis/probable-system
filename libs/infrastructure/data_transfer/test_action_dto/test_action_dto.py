@@ -78,7 +78,7 @@ def from_tuple(
 
 
 @Z.curry
-def to_model(runner: TestAction.Action_Runner, dto: DTO) -> TestAction.Model:
+def to_model(runner: TestAction.ActionRunner, dto: DTO) -> TestAction.Model:
   return _( TestAction.RootModel
           , _(dto, get_id, TestAction.set_id)
           , _(dto, get_name, TestAction.set_name)
