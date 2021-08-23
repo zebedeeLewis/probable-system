@@ -9,31 +9,55 @@ from toolz import pipe as _
 
 # Local Libs
 from libs.domain.entity.test_case_entity import TestCase
+from libs.domain.entity.test_step_entity import TestStep
 from libs.utils.misc import MiscUtils as U
 
 
 ID_COL              : T.Final[int] = 0
 DESCRIPTION_COL     : T.Final[int] = 1
-EXECUTION_STATE_COL : T.Final[int] = 2
-TEST_STEPS_COL      : T.Final[int] = 3
 
 
-Model: T.Final = T.Tuple[str, str, str, str]
+class DTO(T.TypedDict):
+  id          : str
+  description : str
+
+
+RootDTO: T.Final[DTO] = {
+  "id"          : "default-test-id",
+  "description" : "this is the default test",
+}
 
 
 @Z.curry
-def read_cell(row_index: int, cell: str, worksheet: Model) -> T.Any:
-  return worksheet["{}{}".format(cell, str(row_index))].value
+def set_id(id: str, dto: DTO) -> DTO:
+  return Z.assoc(dto, 'id', id)
+
+
+def get_id(dto: DTO) -> str:
+  return dto.get('id')
 
 
 @Z.curry
-def parse(row: Model) -> TestCase.Model:
+def set_description(description: str, dto: DTO) -> DTO:
+  return Z.assoc(dto, 'description', description)
+
+
+def get_description(dto: DTO) -> str:
+  return dto.get('description')
+
+
+@Z.curry
+def from_tuple(row: T.Final = T.Tuple[str, str]) -> DTO:
+  return _( RootDTO
+          , set_id(row[ID_COL])
+          , set_description(row[DESCRIPTION_COL]))
+
+
+@Z.curry
+def to_model(steps: T.List[TestStep.Model], dto: DTO) -> TestCase.Model:
   return _( TestCase.RootModel
-          , TestCase.set_id(row[ID_COL])
-          , TestCase.set_description(row[DESCRIPTION_COL])
-          , TestCase.set_execution_state(row[EXECUTION_STATE_COL])
-          , TestCase.set_steps(_( row[TEST_STEPS_COL]
-                                , U.split_by(",")
-                                , U.filter(lambda x: x != "") )))
+          , _(dto, get_id, TestCase.set_id)
+          , _(dto, get_description, TestCase.set_description)
+          , TestCase.set_steps(steps) )
 
 
