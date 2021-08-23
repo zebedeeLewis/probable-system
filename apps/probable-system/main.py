@@ -13,6 +13,7 @@ from libs.domain.entity.test_case_entity import TestCase
 from libs.infrastructure.repository.test_case import TestCaseRepo
 from libs.infrastructure.data_access.test_case import TestCaseDAO
 from libs.infrastructure.data_access.test_step import TestStepDAO
+from libs.infrastructure.data_access.test_action_dao import TestActionDAO
 
 
 def pytest_generate_tests(metafunc):
@@ -20,10 +21,11 @@ def pytest_generate_tests(metafunc):
     data_source = openpyxl.load_workbook(C.TEST_CASE_FILE)
     test_case_dao = TestCaseDAO.create(data_source)
     test_step_dao = TestStepDAO.create(data_source)
+    test_action_dao = TestActionDAO.create(data_source)
 
     test_cases = (
       TestCaseRepo
-        .create(test_case_dao, test_step_dao)
+        .create(test_case_dao, test_step_dao, test_action_dao)
         .get())
 
     metafunc.parametrize(
