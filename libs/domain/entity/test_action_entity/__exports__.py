@@ -3,6 +3,7 @@ from .test_action_entity import (
   Model,
   ActionRunner,
   RootModel,
+  default_runner,
   set_id,
   get_id,
   set_name,
