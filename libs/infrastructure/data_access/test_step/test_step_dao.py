@@ -12,6 +12,7 @@ from libs.domain.entity.test_step_entity import TestStep
 
 
 WORKSHEET_NAME: T.Final[str] = "test_step_table"
+FIRST_COL_INDEX: T.Final[int] = 1
 
 
 class TestStepDAO(ExcelDatabaseDAO.ExcelDatabaseDAO):
@@ -21,7 +22,12 @@ class TestStepDAO(ExcelDatabaseDAO.ExcelDatabaseDAO):
 
 
   def parse(self, row_index: int) -> dict:
-    return TestStepDTO.parse(row_index, self.worksheet)
+    return TestStepDTO.from_tuple(next(self.worksheet.iter_rows(
+      row_index,
+      row_index,
+      FIRST_COL_INDEX,
+      self.worksheet.max_column,
+      True )))
 
 
   def get_model_id(self, step: dict) -> str:
