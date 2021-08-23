@@ -26,15 +26,15 @@ class ExecutionState(Enum):
 class Model(T.TypedDict):
   id               : str
   description      : str
-  steps            : T.Union[T.List[str], T.List[TestStep.Model]]
+  steps            : ListOfSteps
   execution_state  : ExecutionState
 
 
 RootModel: T.Final[Model] = {
   "id"               : "default-test-id",
   "description"      : "this is the default test",
-  "execution_state"  : ExecutionState.PENDING,
   "steps"            : [TestStep.RootModel],
+  "execution_state"  : ExecutionState.PENDING,
 }
 
 
