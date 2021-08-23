@@ -9,6 +9,7 @@ from toolz import pipe as _
 
 # Local Libs
 from libs.utils.misc import MiscUtils as U
+from libs.domain.entity.test_action_entity import TestAction
 
 
 StepRunner = T.Callable[[T.Optional[T.Any]], T.Optional[T.Any]]
@@ -22,40 +23,33 @@ class ExecutionState(Enum):
 
 
 class Model(T.TypedDict):
-  id               : str
-  test_id          : str
-  name             : str
-  description      : str
-  runner           : StepRunner
-  execution_state  : ExecutionState
-  result           : T.Optional[T.Any]
-  data             : T.Optional[T.Any]
-
-
-def default_runner(data: T.Any):
-  assert False
-  return None
+  id              : str
+  test_id         : str
+  action          : TestAction.Model
+  description     : str
+  execution_state : ExecutionState
+  result          : T.Optional[T.Any]
+  data            : T.Optional[T.Any]
 
 
 RootModel: T.Final[Model] = {
-  "id"               : "default-step-id",
-  "test_id"          : "default-test-id",
-  "name"             : "default step",
-  "description"      : "default step does nothing",
-  "execution_state"  : ExecutionState.PENDING,
-  "runner"           : default_runner,
-  "result"           : None,
-  "data"             : "random data",
+  "id"              : "default-step-id",
+  "test_id"         : "default-test-id",
+  "action"          : TestAction.RootModel,
+  "description"     : "default step does nothing",
+  "execution_state" : ExecutionState.PENDING,
+  "result"          : None,
+  "data"            : "random data",
 }
 
 
 @Z.curry
-def set_name(name: str, test_step: Model) -> Model:
-  return Z.assoc(test_step, 'name', name)
+def set_action(action: TestAction.Model, test_step: Model) -> Model:
+  return Z.assoc(test_step, 'action', action)
 
 
-def get_name(model: Model) -> str:
-  return model.get('name')
+def get_action(model: Model) -> TestAction.Model:
+  return model.get('action')
 
 
 @Z.curry
@@ -115,19 +109,10 @@ def get_test_id(model: Model) -> str:
   return model.get('test_id')
 
 
-@Z.curry
-def set_runner(runner: T.Callable, test_step: Model) -> Model:
-  return Z.assoc(test_step, 'runner', runner)
-
-
-def get_runner(model: Model) -> T.Callable:
-  return model.get('runner')
-
-
 def apply_runner_to_data(test_step: Model) -> T.Any:
   return U.apply(
-    get_runner(test_step), 
-    get_data(test_step),
+    _(test_step, get_action, TestAction.get_runner),
+    _(test_step, get_data),
   )
 
 
