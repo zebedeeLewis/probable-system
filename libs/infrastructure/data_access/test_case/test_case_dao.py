@@ -11,6 +11,8 @@ from libs.domain.entity.test_case_entity import TestCase
 
 
 WORKSHEET_NAME: T.Final[str] = "test_case_table"
+FIRST_COL_INDEX: T.Final[str] = 1
+
 
 
 class TestCaseDAO(ExcelDatabaseDAO.ExcelDatabaseDAO):
@@ -20,8 +22,13 @@ class TestCaseDAO(ExcelDatabaseDAO.ExcelDatabaseDAO):
 
 
   def parse(self, row_index: int) -> dict:
-    return TestCaseDTO.parse(next(
-      self.worksheet.iter_rows(1,1,1, self.worksheet.max_column, True) ))
+    return TestCaseDTO.from_tuple(next(
+      self.worksheet.iter_rows(
+        row_index,
+        row_index,
+        FIRST_COL_INDEX,
+        self.worksheet.max_column,
+        True) ))
 
 
   def get_model_id(self, step: dict) -> str:
